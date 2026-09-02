@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Scrub & Spin: Veterinary Operating Theatre</title>
+<style>
+:root{
+  --bg:#071216;--panel:#0d1e24;--panel2:#102930;--line:#21454d;--mint:#79e5d1;--mint2:#b6fff2;
+  --text:#eefcf9;--muted:#9db6b9;--red:#ff6f7d;--amber:#ffc96b;--green:#73e7a6;--blue:#75bfff;
+  --shadow:0 16px 45px rgba(0,0,0,.35);--radius:22px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top,#0e2831 0,#071216 50%,#041013 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;min-height:100vh}
+button{font:inherit}
+.wrap{max-width:1180px;margin:auto;padding:16px 14px 60px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;align-items:stretch}
+.panel{background:linear-gradient(180deg,rgba(17,43,51,.98),rgba(9,25,30,.98));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.heroText{padding:24px}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);font-weight:800}
+h1{font-size:clamp(28px,7vw,58px);line-height:.92;margin:8px 0 14px;max-width:850px}
+.sub{color:var(--muted);line-height:1.55;max-width:760px}
+.art{min-height:270px;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIj4KPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiMwODE1MWIiLz4KPHJlY3QgeD0iNTQiIHk9IjYwIiB3aWR0aD0iNTMyIiBoZWlnaHQ9IjI1MCIgcng9IjI4IiBmaWxsPSIjMTIzMTNhIiBzdHJva2U9IiM2OWQ3YzEiIHN0cm9rZS13aWR0aD0iNSIvPgo8Y2lyY2xlIGN4PSIyMjAiIGN5PSIxMTIiIHI9IjQyIiBmaWxsPSIjZThmZmY4Ii8+PGNpcmNsZSBjeD0iMzIwIiBjeT0iMTAwIiByPSI0MiIgZmlsbD0iI2U4ZmZmOCIvPjxjaXJjbGUgY3g9IjQyMCIgY3k9IjExMiIgcj0iNDIiIGZpbGw9IiNlOGZmZjgiLz4KPHBhdGggZD0iTTEyMCAyNTBoNDAwIiBzdHJva2U9IiM4ZmRlZDAiIHN0cm9rZS13aWR0aD0iMTYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMjMwIDI1MHY0NU00MTAgMjUwdjQ1IiBzdHJva2U9IiM4ZmRlZDAiIHN0cm9rZS13aWR0aD0iMTAiLz4KPHJlY3QgeD0iMjY1IiB5PSIxODAiIHdpZHRoPSIxMTAiIGhlaWdodD0iMzIiIHJ4PSI4IiBmaWxsPSIjYzU1ZDY5Ii8+Cjx0ZXh0IHg9IjMyMCIgeT0iMzM1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNkNmZmZjciPk9QRVJBVElORyBUSEVBVFJFPC90ZXh0Pgo8L3N2Zz4=');background-size:cover;background-position:center;position:relative;overflow:hidden}
+.art:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(3,14,17,.88))}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.badge{padding:8px 11px;border-radius:999px;background:#102c33;border:1px solid #2f5961;color:#c8f8ef;font-size:12px;font-weight:700}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}
+.stage{padding:16px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.caseTitle{font-size:23px;font-weight:900}
+.small{font-size:12px;color:var(--muted)}
+.patient{display:grid;grid-template-columns:.85fr 1.15fr;gap:14px}
+.patientArt{min-height:225px;border-radius:18px;background:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeDI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMwYjFhMjIiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxNzM2NDIiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9InVybCgjZykiLz4KPGVsbGlwc2UgY3g9IjMyMCIgY3k9IjI0NSIgcng9IjIxMCIgcnk9Ijc4IiBmaWxsPSIjMmU1MzYwIi8+CjxlbGxpcHNlIGN4PSIzMzAiIGN5PSIyMTAiIHJ4PSIxNTAiIHJ5PSI3MCIgZmlsbD0iI2Q1YWE3OCIvPgo8Y2lyY2xlIGN4PSIyMDUiIGN5PSIxNjUiIHI9IjYyIiBmaWxsPSIjZDVhYTc4Ii8+CjxwYXRoIGQ9Ik0xNjAgMTE4IDEwNSA3MiAxMjggMTUwek0yNDAgMTEyIDI4MiA2MiAyNjQgMTUweiIgZmlsbD0iI2E4N2Q1MiIvPgo8Y2lyY2xlIGN4PSIxODUiIGN5PSIxNTgiIHI9IjgiIGZpbGw9IiMxMTEiLz48Y2lyY2xlIGN4PSIyMjgiIGN5PSIxNTgiIHI9IjgiIGZpbGw9IiMxMTEiLz4KPGVsbGlwc2UgY3g9IjIwNyIgY3k9IjE4NiIgcng9IjE2IiByeT0iMTEiIGZpbGw9IiMxYjFiMWIiLz4KPHBhdGggZD0iTTI1MCAyMjAgUTMzMCAyNjAgNDA4IDIyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOGQ0NzNlIiBzdHJva2Utd2lkdGg9IjgiLz4KPHJlY3QgeD0iNDMwIiB5PSIxNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iNDYiIHJ4PSIxMCIgZmlsbD0iIzc5ZTVkMSIvPgo8dGV4dCB4PSI0ODAiIHk9IjE2OCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXdlaWdodD0iNzAwIiBmb250LXNpemU9IjE5IiBmaWxsPSIjMDgyNTJiIj5QQVRJRU5UPC90ZXh0Pgo8L3N2Zz4=') center/cover;border:1px solid #28505a}
+.caseInfo{background:#09191e;border:1px solid var(--line);border-radius:18px;padding:14px}
+.caseInfo h3{margin:0 0 5px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.tag{font-size:11px;padding:7px 9px;border-radius:999px;background:#17373f;color:#d8fff8}
+.vitals{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.vital{background:#071418;border:1px solid #24434a;border-radius:15px;padding:10px}
+.vital strong{display:block;font-size:20px;margin-top:4px}
+.ecg{margin-top:12px;background:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iMjIwIj4KPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIyMjAiIHJ4PSIyOCIgZmlsbD0iIzA3MTMxNiIvPgo8ZyBzdHJva2U9IiMxNjRhNDUiIHN0cm9rZS13aWR0aD0iMSI+PHBhdGggZD0iTTAgNTVoNjQwTTAgMTEwaDY0ME0wIDE2NWg2NDAiLz48cGF0aCBkPSJNODAgMHYyMjBNMTYwIDB2MjIwTTI0MCAwdjIyME0zMjAgMHYyMjBNNDAwIDB2MjIwTTQ4MCAwdjIyME01NjAgMHYyMjAiLz48L2c+CjxwYXRoIGQ9Ik0wIDEyMCA3MCAxMjAgOTIgMTE4IDExMCAxMjAgMTI1IDc1IDE0MyAxNzUgMTY1IDEwOCAxOTAgMTIwIDI3NSAxMjAgMjk2IDExOCAzMTIgMTIwIDMyOSA3NiAzNDYgMTc0IDM2NyAxMDggMzkyIDEyMCA0NzAgMTIwIDQ5MCAxMTggNTEwIDEyMCA1MjUgNzggNTQ1IDE3MiA1NjUgMTA4IDU5MCAxMjAgNjQwIDEyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNzNmMWM3IiBzdHJva2Utd2lkdGg9IjUiLz4KPC9zdmc+') center/cover;height:115px;border-radius:16px;border:1px solid #21434b;position:relative;overflow:hidden}
+.ecgLabel{position:absolute;top:10px;left:12px;font-size:11px;color:#81e8d4;font-weight:800;letter-spacing:.11em}
+.statusbar{height:10px;background:#061014;border-radius:99px;overflow:hidden;border:1px solid #1b353a;margin-top:10px}
+.statusfill{height:100%;width:100%;background:linear-gradient(90deg,#ff6e7c,#ffc86d,#78e4a6);transition:.25s}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.action{appearance:none;border:1px solid #2d5c65;background:linear-gradient(#16373f,#0f262c);color:white;border-radius:16px;padding:12px 8px;min-height:64px;font-weight:800;cursor:pointer;transition:.15s}
+.action:active{transform:scale(.98)}
+.action small{display:block;color:#a9c5c7;font-weight:500;margin-top:4px}
+.action.good{border-color:#398f72}
+.side{padding:16px}
+.scoreRow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.score{background:#09181d;border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.score b{display:block;font-size:22px;color:var(--mint2)}
+.deck{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.card{height:156px;border-radius:18px;border:1px solid #2b5861;background:linear-gradient(150deg,#173741,#0b1c22);padding:12px;position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.card:before{content:"";position:absolute;width:90px;height:90px;border-radius:50%;right:-25px;top:-25px;background:rgba(121,229,209,.07)}
+.card .icon{font-size:32px}
+.card h4{margin:4px 0 2px;font-size:14px}
+.card p{margin:0;font-size:11px;line-height:1.35;color:#a9bfc2}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.reel{background:#061418;border:1px solid #2b525a;border-radius:18px;height:108px;display:grid;place-items:center;text-align:center;font-size:36px;box-shadow:inset 0 0 35px rgba(0,0,0,.3)}
+.reel span{display:block;font-size:11px;margin-top:3px;color:#a8bfc0;font-weight:700}
+.spin{width:100%;margin-top:10px;border:0;border-radius:18px;padding:15px;background:linear-gradient(135deg,#78e4ce,#4bb4d8);color:#042129;font-weight:1000;letter-spacing:.04em;cursor:pointer}
+.log{margin-top:14px;background:#061418;border:1px solid #214249;border-radius:16px;padding:12px;min-height:160px;max-height:250px;overflow:auto}
+.log p{margin:0 0 7px;font-size:12px;line-height:1.42;color:#c9d9da}
+.log p:first-child{color:#fff}
+.footerActions{display:flex;gap:8px;margin-top:10px}
+.ghost{flex:1;border:1px solid #2b4f57;background:#0a1d22;color:#d9f1ed;border-radius:13px;padding:11px;font-weight:750}
+.overlay{position:fixed;inset:0;background:rgba(1,8,10,.78);display:none;align-items:center;justify-content:center;padding:18px;z-index:20}
+.modal{max-width:560px;width:100%;background:#0c2026;border:1px solid #2d5b64;border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+.modal h2{margin-top:0;font-size:30px}
+.modal button{width:100%;border:0;background:var(--mint);color:#05232a;font-weight:900;border-radius:14px;padding:13px}
+@media(max-width:850px){.hero,.grid,.patient{grid-template-columns:1fr}.art{min-height:210px}}
+@media(max-width:520px){.actions{grid-template-columns:repeat(2,1fr)}.vitals{grid-template-columns:repeat(2,1fr)}.deck{grid-template-columns:1fr}.card{height:108px;display:grid;grid-template-columns:52px 1fr;align-items:center;gap:8px}.card .icon{font-size:28px}h1{font-size:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="panel heroText">
+      <div class="eyebrow">Veterinary surgical simulation</div>
+      <h1>SCRUB &amp; SPIN</h1>
+      <div class="sub">A tense, card-driven operating theatre game. Stabilize the patient, choose surgical moves, react to complications, and hit jackpot combinations for clutch saves. This is a fictional game — not medical instruction.</div>
+      <div class="badges">
+        <span class="badge">🃏 Card jackpot play</span><span class="badge">❤️ Live vitals</span><span class="badge">⚠ Complications</span><span class="badge">🏥 Theatre atmosphere</span><span class="badge">📱 Mobile ready</span>
+      </div>
+    </div>
+    <div class="panel art"></div>
+  </section>
+
+  <main class="grid">
+    <section class="panel stage">
+      <div class="topline">
+        <div><div class="small">CURRENT CASE</div><div id="caseTitle" class="caseTitle">Loading...</div></div>
+        <div class="badge">THEATRE <span id="theatreNo">01</span></div>
+      </div>
+      <div class="patient">
+        <div class="patientArt"></div>
+        <div class="caseInfo">
+          <h3 id="patientName">Patient</h3>
+          <div id="caseText" class="small"></div>
+          <div class="tags"><span id="tagSpecies" class="tag"></span><span id="tagProcedure" class="tag"></span><span id="tagRisk" class="tag"></span></div>
+          <div class="vitals">
+            <div class="vital"><span class="small">HR</span><strong id="hr">0</strong><span class="small">bpm</span></div>
+            <div class="vital"><span class="small">SpO₂</span><strong id="spo2">0%</strong><span class="small">oxygen</span></div>
+            <div class="vital"><span class="small">TEMP</span><strong id="temp">0</strong><span class="small">°F</span></div>
+            <div class="vital"><span class="small">BP</span><strong id="bp">0</strong><span class="small">MAP</span></div>
+          </div>
+          <div class="statusbar"><div id="statusfill" class="statusfill"></div></div>
+        </div>
+      </div>
+
+      <div class="ecg"><div class="ecgLabel">LIVE MONITOR</div></div>
+      <div id="actions" class="actions"></div>
+    </section>
+
+    <aside class="panel side">
+      <div class="scoreRow">
+        <div class="score"><span class="small">SCORE</span><b id="score">0</b></div>
+        <div class="score"><span class="small">CONTROL</span><b id="control">70</b></div>
+        <div class="score"><span class="small">STRESS</span><b id="stress">20</b></div>
+      </div>
+
+      <div class="topline" style="margin-top:16px"><div><div class="small">SURGICAL HAND</div><b>Action Cards</b></div><span class="small">3 active</span></div>
+      <div id="deck" class="deck"></div>
+
+      <div class="topline" style="margin-top:16px"><div><div class="small">JACKPOT ASSIST</div><b>Spin under pressure</b></div><span id="spins" class="badge">3 spins</span></div>
+      <div class="reels">
+        <div id="r1" class="reel">🩺<span>MONITOR</span></div>
+        <div id="r2" class="reel">🧤<span>STERILE</span></div>
+        <div id="r3" class="reel">💓<span>RHYTHM</span></div>
+      </div>
+      <button id="spinBtn" class="spin">SPIN SURGICAL JACKPOT</button>
+
+      <div id="log" class="log"></div>
+      <div class="footerActions"><button id="newCase" class="ghost">New case</button><button id="help" class="ghost">How to play</button></div>
+    </aside>
+  </main>
+</div>
+
+<div id="overlay" class="overlay"><div class="modal"><h2 id="modalTitle">Case complete</h2><p id="modalText"></p><button id="modalBtn">Continue</button></div></div>
+
+<script>
+const cases = [
+ {name:"Milo",species:"Dog • Labrador",procedure:"Exploratory abdominal surgery",risk:"Moderate risk",title:"Foreign-body emergency",text:"Milo arrived after repeated vomiting and abdominal pain. Imaging suggests a swallowed object. The theatre team is prepped and the clock is running.",hr:128,spo2:96,temp:101.7,bp:78},
+ {name:"Juniper",species:"Cat • Domestic Shorthair",procedure:"Emergency wound repair",risk:"High tension",title:"Traumatic laceration",text:"Juniper has a deep traumatic wound requiring repair. Blood loss is controlled for now, but stress and temperature are moving in the wrong direction.",hr:176,spo2:95,temp:100.1,bp:72},
+ {name:"Atlas",species:"Dog • German Shepherd",procedure:"Orthopedic stabilization",risk:"High risk",title:"Fracture theatre",text:"Atlas has an unstable limb fracture. The team must maintain physiologic stability while completing careful orthopedic work.",hr:142,spo2:97,temp:102.0,bp:82},
+ {name:"Pip",species:"Rabbit",procedure:"Soft-tissue procedure",risk:"Very delicate",title:"Tiny patient, narrow margin",text:"Pip is small, fast-metabolizing, and vulnerable to temperature loss. Every move affects the balance of the room.",hr:212,spo2:96,temp:100.4,bp:70},
+ {name:"Saffron",species:"Dog • Terrier",procedure:"Mass removal",risk:"Moderate risk",title:"Precision excision",text:"Saffron is here for removal of a suspicious external mass. The challenge is precision, clean margins, and steady vitals.",hr:118,spo2:98,temp:101.3,bp:80}
+];
+
+const actionPool = [
+ {id:"prep",label:"Prep & drape",sub:"sterility + control",icon:"🧼",delta:{control:10,stress:-2,score:70},good:true},
+ {id:"monitor",label:"Read monitor",sub:"catch trends early",icon:"🩺",delta:{control:8,stress:-3,score:55},good:true},
+ {id:"incision",label:"Make incision",sub:"advance procedure",icon:"🔪",delta:{control:-5,stress:8,progress:18,score:120}},
+ {id:"retract",label:"Retract field",sub:"exposure + visibility",icon:"🪝",delta:{control:4,stress:2,progress:12,score:80}},
+ {id:"suction",label:"Suction field",sub:"recover visibility",icon:"🫧",delta:{control:9,stress:-1,score:70},good:true},
+ {id:"ligate",label:"Control bleeding",sub:"secure the field",icon:"🩸",delta:{control:14,stress:-8,progress:9,score:160},good:true},
+ {id:"close",label:"Layered closure",sub:"finish the operation",icon:"🧵",delta:{control:3,stress:2,progress:22,score:170}},
+ {id:"warm",label:"Warm patient",sub:"protect temperature",icon:"🌡️",delta:{control:7,stress:-5,score:60},good:true},
+ {id:"team",label:"Call team check",sub:"reset coordination",icon:"👥",delta:{control:12,stress:-7,score:65},good:true}
+];
+
+const cards = [
+ {icon:"🛡️",name:"Steady Hands",desc:"+15 control. Reduces complication chance on next move.",kind:"control"},
+ {icon:"💓",name:"Rhythm Rescue",desc:"Improves heart rate and oxygen stability.",kind:"vitals"},
+ {icon:"🧤",name:"Sterile Focus",desc:"+100 score and boosts control.",kind:"score"},
+ {icon:"⚡",name:"Fast Closure",desc:"+18 procedure progress, but adds stress.",kind:"progress"},
+ {icon:"🧊",name:"Cool Nerves",desc:"Drops theatre stress sharply.",kind:"stress"},
+ {icon:"👁️",name:"Second Look",desc:"Reveals and clears a hidden complication.",kind:"clear"}
+];
+
+const reelSymbols = [
+ {i:"🩺",t:"MONITOR",kind:"control"},
+ {i:"🧤",t:"STERILE",kind:"control"},
+ {i:"💓",t:"RHYTHM",kind:"vitals"},
+ {i:"🩸",t:"HEMOSTASIS",kind:"rescue"},
+ {i:"🧵",t:"CLOSURE",kind:"progress"},
+ {i:"⭐",t:"JACKPOT",kind:"jackpot"}
+];
+
+let state = {};
+let complicationShield = false;
+
+const E = id => document.getElementById(id);
+function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+
+function newCase(){
+ const c = cases[rand(0,cases.length-1)];
+ state = {c, score:0, control:72, stress:18, progress:0, spins:3, steps:0,
+   hr:c.hr, spo2:c.spo2, temp:c.temp, bp:c.bp, complication:null, done:false};
+ complicationShield=false;
+ E("theatreNo").textContent=String(rand(1,9)).padStart(2,"0");
+ drawCase(); drawCards(); drawActions(); E("log").innerHTML=""; writeLog("Case opened. The theatre doors close. Team check complete."); 
+}
+
+function drawCase(){
+ let s=state, c=s.c;
+ E("caseTitle").textContent=c.title; E("patientName").textContent=c.name; E("caseText").textContent=c.text;
+ E("tagSpecies").textContent=c.species; E("tagProcedure").textContent=c.procedure; E("tagRisk").textContent=c.risk;
+ E("hr").textContent=Math.round(s.hr); E("spo2").textContent=Math.round(s.spo2)+"%"; E("temp").textContent=s.temp.toFixed(1); E("bp").textContent=Math.round(s.bp);
+ E("score").textContent=s.score; E("control").textContent=Math.round(s.control); E("stress").textContent=Math.round(s.stress); E("spins").textContent=s.spins+" spin"+(s.spins===1?"":"s");
+ E("statusfill").style.width=clamp((s.control + (100-s.stress))/2,0,100)+"%";
+}
+
+function drawActions(){
+ const list = actionPool.slice().sort(()=>Math.random()-.5).slice(0,6);
+ E("actions").innerHTML="";
+ list.forEach(a=>{
+   const b=document.createElement("button"); b.className="action "+(a.good?"good":""); b.innerHTML=`${a.icon} ${a.label}<small>${a.sub}</small>`;
+   b.onclick=()=>act(a); E("actions").appendChild(b);
+ });
+}
+
+function drawCards(){
+ const list = cards.slice().sort(()=>Math.random()-.5).slice(0,3);
+ E("deck").innerHTML="";
+ list.forEach(c=>{
+   const d=document.createElement("button"); d.className="card"; d.style.color="white"; d.style.textAlign="left"; d.style.cursor="pointer";
+   d.innerHTML=`<div class="icon">${c.icon}</div><div><h4>${c.name}</h4><p>${c.desc}</p></div>`;
+   d.onclick=()=>playCard(c,d); E("deck").appendChild(d);
+ });
+}
+
+function applyDelta(d){
+ if(d.control)state.control+=d.control;if(d.stress)state.stress+=d.stress;if(d.progress)state.progress+=d.progress;if(d.score)state.score+=d.score;
+ state.control=clamp(state.control,0,100);state.stress=clamp(state.stress,0,100);state.progress=clamp(state.progress,0,100);
+}
+
+function driftVitals(){
+ const instability=(100-state.control)/100 + state.stress/150;
+ state.hr += rand(-3,5)*instability;
+ state.spo2 -= Math.max(0,rand(-1,2)*instability);
+ state.temp -= 0.03 + Math.random()*.08;
+ state.bp += rand(-4,3)*instability;
+ if(state.control>80){state.spo2+=.4;state.bp+=1}
+ state.spo2=clamp(state.spo2,82,100); state.bp=clamp(state.bp,45,105); state.hr=clamp(state.hr,55,240); state.temp=clamp(state.temp,95.0,104.5);
+}
+
+function maybeComplication(){
+ let chance=.12 + state.stress/300 + (100-state.control)/330;
+ if(complicationShield){chance*=.35;complicationShield=false}
+ if(Math.random()<chance){
+   const comps=[
+    ["Bleeding obscures the field",{control:-14,stress:12,score:-40}],
+    ["Oxygen saturation begins to slide",{control:-10,stress:10,score:-30}],
+    ["Patient temperature is falling",{control:-8,stress:8,score:-20}],
+    ["Unexpected tissue tension slows progress",{control:-7,stress:9,progress:-5}],
+    ["Monitor alarm — rhythm instability",{control:-15,stress:15,score:-50}]
+   ];
+   const x=comps[rand(0,comps.length-1)]; state.complication=x[0]; applyDelta(x[1]); writeLog("⚠ "+x[0]+". The room tightens.",true);
+ }
+}
+
+function act(a){
+ if(state.done)return;
+ state.steps++; applyDelta(a.delta||{}); driftVitals();
+ if(a.id==="monitor"){state.spo2+=1;state.bp+=2}
+ if(a.id==="warm")state.temp+=.5;
+ if(a.id==="ligate" && state.complication){state.complication=null;writeLog("Bleeding control improves. The field clears.")}
+ maybeComplication();
+ writeLog(`${a.icon} ${a.label}. Progress ${Math.round(state.progress)}%.`);
+ drawCase();
+ if(state.steps%2===0)drawActions();
+ checkEnd();
+}
+
+function playCard(c,el){
+ if(state.done)return;
+ if(c.kind==="control"){state.control+=15;complicationShield=true;writeLog("🛡 Steady Hands activated. The next move is protected.")}
+ if(c.kind==="vitals"){state.hr-=8;state.spo2+=3;state.bp+=5;writeLog("💓 Rhythm Rescue steadies the monitor.")}
+ if(c.kind==="score"){state.score+=100;state.control+=8;writeLog("🧤 Sterile Focus: clean technique, clean points.")}
+ if(c.kind==="progress"){state.progress+=18;state.stress+=8;writeLog("⚡ Fast Closure advances the case, but pressure rises.")}
+ if(c.kind==="stress"){state.stress-=18;writeLog("🧊 Cool Nerves. The room settles.")}
+ if(c.kind==="clear"){state.complication=null;state.control+=9;writeLog("👁 Second Look: complication cleared.")}
+ state.control=clamp(state.control,0,100);state.stress=clamp(state.stress,0,100);state.progress=clamp(state.progress,0,100);
+ el.remove();drawCase();checkEnd();
+}
+
+function spin(){
+ if(state.done||state.spins<=0)return;
+ state.spins--; E("spinBtn").disabled=true;
+ let picks=[0,0,0], ticks=0;
+ const timer=setInterval(()=>{
+   picks=picks.map(()=>rand(0,reelSymbols.length-1));
+   ["r1","r2","r3"].forEach((id,i)=>{let x=reelSymbols[picks[i]];E(id).innerHTML=x.i+"<span>"+x.t+"</span>";});
+   ticks++;
+   if(ticks>12){
+    clearInterval(timer);E("spinBtn").disabled=false;resolveSpin(picks);drawCase();
+   }
+ },70);
+}
+
+function resolveSpin(p){
+ const s=p.map(i=>reelSymbols[i]);
+ if(p[0]===p[1]&&p[1]===p[2]){
+   state.score+=500;state.control+=25;state.stress-=25;state.progress+=20;
+   writeLog("⭐ JACKPOT! Triple match — the entire team synchronizes. Massive recovery.",true);
+ } else if(new Set(p).size===2){
+   state.score+=160;state.control+=12;state.stress-=8;writeLog("✨ Pair hit. Useful assist under pressure.");
+ } else {
+   const kinds=s.map(x=>x.kind);
+   if(kinds.includes("rescue")){state.control+=10;state.stress-=6;state.score+=80;writeLog("🩸 Hemostasis assist lands.")}
+   else if(kinds.includes("progress")){state.progress+=10;state.score+=70;writeLog("🧵 Closure assist advances the procedure.")}
+   else if(kinds.includes("vitals")){state.spo2+=2;state.bp+=3;state.score+=60;writeLog("💓 Rhythm assist stabilizes the patient.")}
+   else {state.control+=5;state.score+=40;writeLog("🩺 Minor assist. Nothing flashy, but it helps.")}
+ }
+ state.control=clamp(state.control,0,100);state.stress=clamp(state.stress,0,100);state.progress=clamp(state.progress,0,100);
+ checkEnd();
+}
+
+function checkEnd(){
+ if(state.progress>=100){
+   state.done=true;
+   const grade=state.control>72 && state.stress<55 ? "Excellent theatre control" : state.control>45 ? "Case completed under pressure" : "Case completed, but barely";
+   showModal("Operation complete",`${grade}. Final score: ${state.score}. Control: ${Math.round(state.control)}. Stress: ${Math.round(state.stress)}.`);
+ }
+ if(state.control<=0 || state.spo2<=84 || state.bp<=48){
+   state.done=true;
+   showModal("Case aborted","The patient's simulated stability fell outside the game's safe range. In this fictional theatre, the team aborts and stabilizes before trying again.");
+ }
+}
+
+function showModal(t,txt){E("modalTitle").textContent=t;E("modalText").textContent=txt;E("overlay").style.display="flex"}
+function writeLog(msg,hot=false){
+ const p=document.createElement("p");p.textContent=msg;if(hot)p.style.color="#ffc96b";E("log").prepend(p);
+}
+
+E("spinBtn").onclick=spin; E("newCase").onclick=newCase;
+E("help").onclick=()=>showModal("How to play","Choose surgical action buttons to build procedure progress while keeping CONTROL high and STRESS low. Action cards are one-use tactical boosts. You get three jackpot spins per case. Complete 100% progress before stability collapses. The game is fictional and designed for atmosphere, not real surgical training.");
+E("modalBtn").onclick=()=>{E("overlay").style.display="none"; if(state.done)newCase();};
+newCase();
+</script>
+</body>
+</html>
